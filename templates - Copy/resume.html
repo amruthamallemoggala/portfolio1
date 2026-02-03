@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block title %}Resume - My Portfolio{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1>My Resume</h1>
+        <p class="breadcrumb">Home > Resume</p>
+    </div>
+</div>
+
+<section class="resume-section">
+    <div class="container">
+        <div class="resume-grid">
+            <div class="resume-upload">
+                <h2>Upload Your Resume</h2>
+                <p>Share your resume for future opportunities or download mine below.</p>
+                
+                <form method="POST" enctype="multipart/form-data" class="upload-form">
+                    <div class="file-input-wrapper">
+                        <input type="file" id="resume_file" name="resume_file" required 
+                               accept=".pdf,.txt,.doc,.docx,.png,.jpg,.jpeg,.gif"
+                               class="file-input">
+                        <label for="resume_file" class="file-label">
+                            <span class="file-icon">📄</span>
+                            <span class="file-text">Choose a file or drag it here</span>
+                            <span class="file-hint">Supported: PDF, DOC, DOCX, TXT, PNG, JPG (Max 16MB)</span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full">Upload Resume</button>
+                </form>
+                
+                <h3>Download My Resume</h3>
+                <p>Get a copy of my professional resume:</p>
+                <a href="#" class="btn btn-secondary" download>Download Resume (PDF)</a>
+            </div>
+            
+            <div class="resume-content">
+                <h2>Professional Summary</h2>
+                
+                <div class="resume-section">
+                    <h3>About Me</h3>
+                    <p>Motivated and enthusiastic student with a strong interest in technology and continuous learning. Possesses basic knowledge of computer fundamentals and problem-solving skills. Eager to gain practical experience and grow professionally in an entry-level role.</p>
+                </div>
+                
+                <div class="resume-section">
+                    <h3>Technical Skills</h3>
+                    <ul class="skills-list">
+                        <li>Programming Languages: Java (Basics), C (Basics), Python</li>
+                        <li>Web Technologies: HTML, CSS, JavaScript</li>
+                        <li>Databases: SQL</li>
+                    </ul>
+                </div>
+                
+                <div class="resume-section">
+                    <h3>Soft Skills</h3>
+                    <ul class="skills-list">
+                        <li>Communication & Collaboration: Excellent written and verbal communication skills</li>
+                        <li>Problem-Solving: Strong analytical and logical reasoning abilities</li>
+                        <li>Adaptability & Proactivity: Quick to learn new technologies</li>
+                        <li>Leadership & Time Management: Ability to manage project timelines effectively</li>
+                    </ul>
+                </div>
+                
+                <div class="resume-section">
+                    <h3>Academic Projects</h3>
+                    
+                    <div class="resume-item">
+                        <div class="resume-header">
+                            <h4>Room Occupancy Detection System</h4>
+                        </div>
+                        <ul class="duties-list">
+                            <li>Designed and implemented a room occupancy detection system using sensor integration to identify real-time presence of people</li>
+                            <li>Collected and processed sensor data to accurately classify occupied vs. unoccupied states</li>
+                            <li>Showcases proficiency in creating functional systems and understanding of data processing</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resume-item">
+                        <div class="resume-header">
+                            <h4>Desktop Notifier Application</h4>
+                        </div>
+                        <ul class="duties-list">
+                            <li>Developed a desktop application that displays real-time pop-up notifications on the user's system for reminders and alerts</li>
+                            <li>Designed secure event handling system with minimal system permissions</li>
+                            <li>Improved user productivity by reducing the need for manual monitoring</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="resume-section">
+                    <h3>Education</h3>
+                    <div class="resume-item">
+                        <div class="resume-header">
+                            <h4>B.Tech - Computer Science</h4>
+                            <span class="resume-date">2026 - Present</span>
+                        </div>
+                        <p class="company">Mother Teresa Institute of Science and Technology</p>
+                        <p><strong>CGPA: 8.0</strong></p>
+                    </div>
+                    
+                    <div class="resume-item">
+                        <div class="resume-header">
+                            <h4>Intermediate (MPC)</h4>
+                            <span class="resume-date">May 2022</span>
+                        </div>
+                        <p class="company">Shanthinikethan Junior College</p>
+                        <p><strong>Percentage: 75%</strong></p>
+                    </div>
+                    
+                    <div class="resume-item">
+                        <div class="resume-header">
+                            <h4>10th Class (SSC)</h4>
+                            <span class="resume-date">May 2020</span>
+                        </div>
+                        <p class="company">Mother Theresa Techno School</p>
+                        <p><strong>CGPA: 10.0</strong></p>
+                    </div>
+                </div>
+                
+                <div class="resume-section">
+                    <h3>Certifications</h3>
+                    <ul class="skills-list">
+                        <li>Programming Essential in C Language - Cisco</li>
+                        <li>Python Essential 1 - Cisco</li>
+                        <li>Big Data Computing - NPTEL</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="uploaded-files-section">
+    <div class="container">
+        <h2>Uploaded Resumes</h2>
+        
+        {% if uploaded_files %}
+        <div class="files-list">
+            {% for file in uploaded_files|reverse %}
+            <div class="file-item">
+                <div class="file-info">
+                    <span class="file-name">{{ file.original_name }}</span>
+                    <span class="file-date">{{ file.upload_time }}</span>
+                </div>
+                <a href="{{ url_for('download', filename=file.filename) }}" class="btn btn-small">Download</a>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="no-files">No resumes uploaded yet.</p>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}
